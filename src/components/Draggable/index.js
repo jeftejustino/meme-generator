@@ -50,19 +50,7 @@ export default function Draggable({ option, onChange }) {
       document.onmouseup = closeDragElement;
     };
   });
-  useEffect(() => {
-    dragRef.current.style.top = option.top;
-    dragRef.current.style.left = option.left;
-  }, [option]);
 
-  // text: 'Teste Texto 2',
-  // size: 14,
-  // bold: true,
-  // color: '#000000',
-  // shadow: true,
-  // shadowColor: '#ffffff',
-  // left: 0,
-  // top: 0,
   return (
     <Container className="draggable" option={option} ref={dragRef}>
       {option.text}

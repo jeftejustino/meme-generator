@@ -55,24 +55,13 @@ export default function Meme({ options, setOptions }) {
     }
   }
 
-  // text: 'Teste Texto 2',
-  // size: 14,
-  // bold: true,
-  // color: '#000000',
-  // shadow: true,
-  // shadowColor: '#ffffff',
-  // left: 0,
-  // top: 0,
-  // width: 200,
-  // height: 50,
-
   async function loadScreen() {
     const img = document.createElement('img');
     img.src = imagem;
     img.onload = () => {
       const h = (img.height * 550) / img.width;
       canvas.current.height = h;
-      canvas.current.style.letterSpacing = '-2px';
+      canvas.current.style.letterSpacing = '0px';
       const context = canvas.current.getContext('2d');
       context.clearRect(0, 0, canvas.current.width, canvas.current.height);
       context.drawImage(img, 0, 0, 550, h);
@@ -80,19 +69,24 @@ export default function Meme({ options, setOptions }) {
 
       options.map(option => {
         if (option.bold) {
-          context.font = `bold ${option.size}px Arial`;
+          context.font = `bold ${option.size}px Anton`;
         } else {
-          context.font = `${option.size}px Arial`;
+          context.font = `${option.size}px Anton`;
         }
         context.fillStyle = option.color;
 
+        context.textBaseline = 'top';
+        context.letterSpacing = '0px';
+        context.fillText(option.text, option.left + 6, option.top + 10);
+
         if (option.shadow) {
           context.shadowColor = option.shadowColor;
-          context.shadowBlur = 2;
+          context.shadowBlur = 3;
+          context.strokeStyle = option.shadowColor;
+          context.lineWidth = 2;
+
+          context.strokeText(option.text, option.left + 6, option.top + 10);
         }
-        context.textBaseline = 'top';
-        context.letterSpacing = '-2px';
-        context.fillText(option.text, option.left + 3, option.top + 3);
       });
     };
   }
@@ -130,7 +124,7 @@ export default function Meme({ options, setOptions }) {
       </MemeContainer>
 
       <button type="button" onClick={handleDownload}>
-        Download Canvas
+        Download MEME
       </button>
     </Container>
   );
